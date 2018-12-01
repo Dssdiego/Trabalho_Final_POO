@@ -2,13 +2,17 @@
  * Copyright (c) 2018. Diego e Manoel. Todos os Direitos Reservados.
  */
 
-package snct;
+package snct.ifmg.model;
 
-public class Aluno extends Pessoa{
-    String matricula;
+public class Aluno extends Pessoa {
+    private String matricula;
+
+    public Aluno(String matricula) {
+        this.matricula = matricula;
+    }
 
     public Aluno(String nome, String cpf, String matricula) {
-        super(nome,cpf);
+        super(nome, cpf);
         this.matricula = matricula;
     }
 
@@ -18,6 +22,14 @@ public class Aluno extends Pessoa{
 
     public void setMatricula(String matricula) {
         this.matricula = matricula;
+    }
+
+    public void realizarInscricao() {
+
+    }
+
+    public void cancelarInscricao() {
+
     }
 
 }

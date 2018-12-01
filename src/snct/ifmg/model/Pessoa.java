@@ -2,9 +2,9 @@
  * Copyright (c) 2018. Diego e Manoel. Todos os Direitos Reservados.
  */
 
-package snct;
+package snct.ifmg.model;
 
-public class Pessoa {
+public abstract class Pessoa {
     private String nome;
     private String cpf;
 
