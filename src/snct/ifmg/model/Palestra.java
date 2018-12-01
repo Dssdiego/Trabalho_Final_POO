@@ -4,13 +4,23 @@
 
 package snct.ifmg.model;
 
-public class Palestra extends EventoItem{
+public class Palestra extends EventoItem {
 
+    private Integer id;
     private Boolean usaAuditorio;
 
-    public Palestra(String tema, Boolean usaAuditorio) {
-        super(tema);
+    public Palestra(Integer id, String tema, Data data, Boolean usaAuditorio) {
+        super(tema, data);
+        this.id = id;
         this.usaAuditorio = usaAuditorio;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Boolean getUsaAuditorio() {

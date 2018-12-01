@@ -9,7 +9,10 @@
 
 package snct.ifmg.ui;
 
+import snct.ifmg.controller.Agendador;
 import snct.ifmg.model.Data;
+import snct.ifmg.model.MiniCurso;
+import snct.ifmg.model.Palestra;
 
 public class Main {
 
@@ -17,9 +20,35 @@ public class Main {
 
 //        Data data = new Data(1,12,18,13,51);
 //        System.out.println(data.getData()); // TESTE DATA OK
-        
 
+        Agendador agendador = new Agendador();
+        agendador.adicionarEvento(0, "Sistemas de Informação");
+        agendador.adicionarEvento(1, "Administração");
 
+        Palestra reflexoesUniverso = new Palestra(0,"Reflexões sobre o Universo", new Data(1,12,18,13,51), false);
+        Palestra aleluia = new Palestra(0,"Orações para o Brasil", new Data(1,12,18,13,51), false);
+        MiniCurso introducaoAndroid = new MiniCurso(0, "Introdução ao Android", new Data(26,9,18,15,0),null);
+
+        agendador.adicionarPalestra(0, reflexoesUniverso);
+        agendador.adicionarPalestra(0, aleluia);
+        agendador.adicionarMiniCurso(0, introducaoAndroid);
+
+        System.out.println("\nEventos:");
+        agendador.getEventos();
+
+        System.out.println("\nPalestras - 0");
+        agendador.getPalestras(0);
+
+        System.out.println("\nPalestras - 1:");
+        agendador.getPalestras(1);
+
+        System.out.println("\nMiniCursos - 0");
+        agendador.getMiniCursos(0);
+
+        System.out.println("\nMiniCursos - 1:");
+        agendador.getMiniCursos(1);
+
+//        agendador.getMiniCursos(0);
     }
 
     //        Scanner scanner = new Scanner(System.in);
