@@ -10,45 +10,89 @@
 package snct.ifmg.ui;
 
 import snct.ifmg.controller.Agendador;
-import snct.ifmg.model.Data;
-import snct.ifmg.model.MiniCurso;
-import snct.ifmg.model.Palestra;
+import snct.ifmg.model.*;
+
+import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    static Scanner scanner = new Scanner(System.in);
 
-//        Data data = new Data(1,12,18,13,51);
-//        System.out.println(data.getData()); // TESTE DATA OK
+    public static void main(String[] args) throws EmptyStringException {
 
         Agendador agendador = new Agendador();
-        agendador.adicionarEvento(0, "Sistemas de Informação");
-        agendador.adicionarEvento(1, "Administração");
+        int opcao = 0;
 
-        Palestra reflexoesUniverso = new Palestra(0,"Reflexões sobre o Universo", new Data(1,12,18,13,51), false);
-        Palestra aleluia = new Palestra(0,"Orações para o Brasil", new Data(1,12,18,13,51), false);
-        MiniCurso introducaoAndroid = new MiniCurso(0, "Introdução ao Android", new Data(26,9,18,15,0),null);
+        showMainMenu();
+        do {
+            opcao = scanner.nextInt();
 
-        agendador.adicionarPalestra(0, reflexoesUniverso);
-        agendador.adicionarPalestra(0, aleluia);
-        agendador.adicionarMiniCurso(0, introducaoAndroid);
+            switch (opcao) {
+                case 1: // Adicionar Evento
+                    System.out.println("Digite o ID do Evento");
+                    int id = scanner.nextInt();
 
-        System.out.println("\nEventos:");
-        agendador.getEventos();
+                    scanner.nextLine();
 
-        System.out.println("\nPalestras - 0");
-        agendador.getPalestras(0);
+                    System.out.println("Digite a área do Evento");
+                    String ar = scanner.nextLine();
 
-        System.out.println("\nPalestras - 1:");
-        agendador.getPalestras(1);
+                    agendador.adicionarEvento(id, ar);
 
-        System.out.println("\nMiniCursos - 0");
-        agendador.getMiniCursos(0);
+                    mostrarRodape();
+                    break;
+                case 2: // Remover Evento
+//                    manageStudents();
+                    break;
+                case 3:
+//                    showCertificatesMenu();
+                    break;
+            }
+        } while (opcao != 4);
 
-        System.out.println("\nMiniCursos - 1:");
-        agendador.getMiniCursos(1);
-
+//        agendador.adicionarEvento(0, "Sistemas de Informação");
+//        agendador.adicionarEvento(1, "Administração");
+//
+//        Palestra reflexoesUniverso = new Palestra(0, "Reflexões sobre o Universo", new Data(1, 12, 18, 13, 51), false);
+//        Palestra aleluia = new Palestra(0, "Orações para o Brasil", new Data(1, 12, 18, 13, 51), false);
+//        MiniCurso introducaoAndroid = new MiniCurso(0, "Introdução ao Android", new Data(26, 9, 18, 15, 0), null);
+//
+//        agendador.adicionarPalestra(0, reflexoesUniverso);
+//        agendador.adicionarPalestra(0, aleluia);
+//        agendador.adicionarMiniCurso(0, introducaoAndroid);
+//
+//        System.out.println("\nEventos:");
+//        agendador.getEventos();
+//
+//        System.out.println("\nPalestras - 0");
+//        agendador.getPalestras(0);
+//
+//        System.out.println("\nPalestras - 1:");
+//        agendador.getPalestras(1);
+//
+//        System.out.println("\nMiniCursos - 0");
 //        agendador.getMiniCursos(0);
+//
+//        System.out.println("\nMiniCursos - 1:");
+//        agendador.getMiniCursos(1);
+//
+//        System.out.println("\nRemoção:");
+//        System.out.println("\nPalestra - 0");
+//        agendador.removerMiniCurso(0, 0);
+//
+//        System.out.println("\nMiniCursos - 0");
+//        agendador.getMiniCursos(0);
+//
+//        agendador.adicionarMiniCurso(1, introducaoAndroid);
+//
+//        System.out.println("\nMiniCursos - 1");
+//        agendador.getMiniCursos(1);
+    }
+
+    public static void mostrarRodape() {
+        System.out.println("Aperte qualquer tecla para continuar...");
+        scanner.nextLine();
+        showMainMenu();
     }
 
     //        Scanner scanner = new Scanner(System.in);
@@ -82,16 +126,21 @@ public class Main {
 //        System.out.println("Digite o nome do Orador:");
 //        System.out.println("Digite o cpf do Orador:");
 
-//    private static void showMainMenu() {
-//        clearConsole();
-//        System.out.println("----------------------");
-//        System.out.println("1) Gerenciar Eventos");
-//        System.out.println("2) Gerenciar Alunos");
-//        System.out.println("3) Gerar Certificados");
-//        System.out.println("4) Sair do Sistema");
-//        System.out.println("----------------------");
-//    }
-//
+    private static void showMainMenu() {
+        clearConsole();
+        System.out.println("----------------------");
+        System.out.println("1) Adicionar Evento");
+        System.out.println("2) Remover Evento");
+        System.out.println("\n3) Adicionar MiniCurso");
+        System.out.println("4) Remover MiniCurso");
+        System.out.println("\n5) Adicionar Palestra");
+        System.out.println("6) Remover Palestra");
+        System.out.println("\n7) Gerar Certificados");
+        System.out.println("\n8) Sair do Sistema");
+        System.out.println("----------------------");
+    }
+
+    //
 //    private static void manageEvents() {
 //        int op = 0;
 //        Scanner sc = new Scanner(System.in);
@@ -155,9 +204,9 @@ public class Main {
 //        showMainMenu();
 //    }
 //
-//    private static void clearConsole() {
-//        for (int i = 0; i <= 100; i++) {
-//            System.out.println();
-//        }
-//    }
+    private static void clearConsole() {
+        for (int i = 0; i <= 100; i++) {
+            System.out.println();
+        }
+    }
 }

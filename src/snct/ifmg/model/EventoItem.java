@@ -22,6 +22,10 @@ public class EventoItem implements Agendavel {
         this.tema = tema;
     }
 
+    public String getDataFormatada() {
+        return data.getDataFormatada();
+    }
+
     public Data getData() {
         return data;
     }

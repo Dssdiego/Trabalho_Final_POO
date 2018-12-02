@@ -20,8 +20,8 @@ public class Data {
         this.minuto = minuto;
     }
 
-    public String getData() {
-        return String.valueOf(dia) + "/" + String.valueOf(mes) + "/" + String.valueOf(ano) + " " + String.valueOf(hora) + ":" + String.valueOf(minuto);
+    public String getDataFormatada() {
+        return String.format("%02d", dia) + "/" + String.format("%02d", mes) + "/" + String.format("%02d", ano) + " " + String.format("%02d", hora) + ":" + String.format("%02d", minuto);
     }
 
     public void setData(Integer dia, Integer mes, Integer ano, Integer hora, Integer minuto) {

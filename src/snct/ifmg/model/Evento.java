@@ -32,14 +32,14 @@ public class Evento {
     public void getPalestras(Integer eventoID) {
         for (Palestra palestra : palestraList) {
             if (eventoID.equals(getEventoID()))
-                System.out.println(palestra.getTema());
+                System.out.println(palestra.getTema() + " - " + palestra.getDataFormatada());
         }
     }
 
     public void getMiniCursos(Integer eventoID) {
         for (MiniCurso miniCurso : miniCursoList) {
             if (eventoID.equals(getEventoID()))
-                System.out.println(miniCurso.getTema());
+                System.out.println(miniCurso.getTema() + " - " + miniCurso.getDataFormatada());
         }
     }
 
