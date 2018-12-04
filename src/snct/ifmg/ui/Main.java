@@ -9,47 +9,246 @@
 
 package snct.ifmg.ui;
 
-import snct.ifmg.controller.Agendador;
+import snct.ifmg.controller.*;
 import snct.ifmg.model.*;
 
 import java.util.Scanner;
 
 public class Main {
 
-    static Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws EmptyStringException {
 
         Agendador agendador = new Agendador();
-        int opcao = 0;
-
-        showMainMenu();
+        GerenciaAluno gerenciaAluno = new GerenciaAluno();
+        int opcao;
+        
         do {
+            showMainMenu();
             opcao = scanner.nextInt();
 
             switch (opcao) {
-                case 1: // Adicionar Evento
-                    System.out.println("Digite o ID do Evento");
-                    int id = scanner.nextInt();
+                case 1: // Gerenciar evento
+                    do {
+                        showAgendaMenu();
+                        opcao = scanner.nextInt();
 
-                    scanner.nextLine();
+                        switch (opcao) {
+                            case 1: // Adicionar Evento
+                                System.out.println("Digite o ID do Evento");
+                                int id = scanner.nextInt();
 
-                    System.out.println("Digite a área do Evento");
-                    String ar = scanner.nextLine();
+                                scanner.nextLine();
 
-                    agendador.adicionarEvento(id, ar);
+                                System.out.println("Digite a área do Evento");
+                                String ar = scanner.nextLine();
 
-                    mostrarRodape();
+                                agendador.adicionarEvento(id, ar);
+
+                                mostrarRodape();
+                                break;
+                            case 2: // Remover Evento
+                                System.out.println("Digite o ID do Evento a ser Removido");
+                                int idEvento = scanner.nextInt();
+
+                                try {
+                                    agendador.removerEvento(idEvento);
+                                } catch (NonExistentException e) {
+                                    e.printStackTrace();
+                                }
+
+                                mostrarRodape();
+                                break;
+                            case 3: // Listar Eventos
+                                agendador.getEventos();
+
+                                scanner.nextLine();
+
+                                mostrarRodape();
+                                break;
+                            case 4: // Adicionar MiniCurso
+                                System.out.println("Digite o ID do Minicurso");
+                                int miniCursoID = scanner.nextInt();
+
+                                scanner.nextLine();
+
+                                System.out.println("Digite o tema do Minicurso");
+                                String miniCursoTema = scanner.nextLine();
+
+                                System.out.println("Digite o dia do Minicurso");
+                                Integer dia = scanner.nextInt();
+
+                                System.out.println("Digite o mes do Minicurso");
+                                Integer mes = scanner.nextInt();
+
+                                System.out.println("Digite o ano do Minicurso");
+                                Integer ano = scanner.nextInt();
+
+                                System.out.println("Digite a hora do Minicurso");
+                                Integer hora = scanner.nextInt();
+
+                                System.out.println("Digite o minuto do Minicurso");
+                                Integer minuto = scanner.nextInt();
+
+                                Data data = new Data(dia, mes, ano, hora, minuto);
+                                MiniCurso miniCurso = new MiniCurso(miniCursoID, miniCursoTema, data, null);
+
+                                try {
+                                    agendador.adicionarMiniCurso(miniCursoID, miniCurso);
+                                } catch (NonExistentException e) {
+                                    e.printStackTrace();
+                                }
+
+                                scanner.nextLine();
+
+                                mostrarRodape();
+                                break;
+                            case 5: // Remover MiniCurso
+                                System.out.println("Digite o ID do Evento");
+                                int evID = scanner.nextInt();
+
+                                scanner.nextLine();
+
+                                System.out.println("Digite o ID do MiniCurso a ser removido");
+                                int miniID = scanner.nextInt();
+
+                                try {
+                                    agendador.removerMiniCurso(evID, miniID);
+                                } catch (NonExistentException e) {
+                                    e.printStackTrace();
+                                }
+
+                                scanner.nextLine();
+
+                                mostrarRodape();
+
+                                break;
+                            case 6: // Listar MiniCursos
+                                System.out.println("Digite o ID do Evento");
+                                int eventID = scanner.nextInt();
+
+                                agendador.getMiniCursos(eventID);
+
+                                scanner.nextLine();
+
+                                mostrarRodape();
+                                break;
+                            case 7: // Adicionar Palestra
+                                System.out.println("Digite o ID da Palestra");
+                                int idPalestra = scanner.nextInt();
+
+                                scanner.nextLine();
+
+                                System.out.println("Digite o tema da Palestra");
+                                String palestraTema = scanner.nextLine();
+
+                                System.out.println("Digite o dia da Palestra");
+                                Integer diaPalestra = scanner.nextInt();
+
+                                System.out.println("Digite o mes da Palestra");
+                                Integer mesPalestra = scanner.nextInt();
+
+                                System.out.println("Digite o ano da Palestra");
+                                Integer anoPalestra = scanner.nextInt();
+
+                                System.out.println("Digite a hora da Palestra");
+                                Integer horaPalestra = scanner.nextInt();
+
+                                System.out.println("Digite o minuto da Palestra");
+                                Integer minutoPalestra = scanner.nextInt();
+
+                                System.out.println("Usa Auditorio? (s/n)");
+                                Boolean usaAuditorio = scanner.next().equals("s");
+
+                                Data dataPalestra = new Data(diaPalestra, mesPalestra, anoPalestra, horaPalestra, minutoPalestra);
+                                Palestra palestra = new Palestra(idPalestra, palestraTema, dataPalestra, usaAuditorio);
+
+                                try {
+                                    agendador.adicionarPalestra(idPalestra, palestra);
+                                } catch (NonExistentException e) {
+                                    e.printStackTrace();
+                                }
+
+                                scanner.nextLine();
+
+                                mostrarRodape();
+                                break;
+                            case 8: // Remover Palestra
+                                System.out.println("Digite o ID do Evento");
+                                int eventRemoveID = scanner.nextInt();
+
+                                scanner.nextLine();
+
+                                System.out.println("Digite o ID da Palestra a ser removida");
+                                int palessID = scanner.nextInt();
+
+                                try {
+                                    agendador.removerPalestra(eventRemoveID, palessID);
+                                } catch (NonExistentException e) {
+                                    e.printStackTrace();
+                                }
+
+                                scanner.nextLine();
+
+                                mostrarRodape();
+
+                                break;
+                            case 9: // Listar Palestras
+                                System.out.println("Digite o ID do Evento");
+                                int evvvID = scanner.nextInt();
+
+                                agendador.getPalestras(evvvID);
+
+                                scanner.nextLine();
+
+                                mostrarRodape();
+                                break;
+                            case 10: // Voltar o menu principal
+                                break;
+                            default:
+                                System.out.println("Opcao inválida, tente novamente");
+                        }
+                    } while (opcao != 10);
                     break;
-                case 2: // Remover Evento
-//                    manageStudents();
+                case 2: // Gerenciar alunos
+                    do {
+                        showStudentMenu();
+                        opcao = scanner.nextInt();
+
+                        switch (opcao) {
+                            case 1: // Adicionar Aluno
+                                
+                                break;
+                            case 2: // Remover Aluno
+                                
+                                break;
+                            case 3: // Cadastrar aluno em eventoItem
+                                
+                                break;
+                            case 4: // Remover aluno de eventoItem
+                                
+                                break;
+                            case 5: // Gerar certificados
+                                
+                                break;
+                            case 6: // Voltar o menu principal
+                                break;
+                            default:
+                                System.out.println("Opcao inválida, tente novamente");
+                        }
+                    } while (opcao != 6);
                     break;
-                case 3:
-//                    showCertificatesMenu();
+                case 3: // Fechar Aplicação
                     break;
+                default:
+                    System.out.println("Opcao inválida, tente novamente");
             }
-        } while (opcao != 4);
+        } while (opcao != 3);
 
+        
+
+        // TESTES
 //        agendador.adicionarEvento(0, "Sistemas de Informação");
 //        agendador.adicionarEvento(1, "Administração");
 //
@@ -92,51 +291,43 @@ public class Main {
     public static void mostrarRodape() {
         System.out.println("Aperte qualquer tecla para continuar...");
         scanner.nextLine();
-        showMainMenu();
+        showAgendaMenu();
     }
-
-    //        Scanner scanner = new Scanner(System.in);
-//        int opcao = 0;
-//
-//        showMainMenu();
-//        do {
-//            opcao = scanner.nextInt();
-//
-//            switch (opcao) {
-//                case 1:
-//                    manageEvents();
-//                    break;
-//                case 2:
-//                    manageStudents();
-//                    break;
-//                case 3:
-////                    showCertificatesMenu();
-//                    break;
-//            }
-//        } while (opcao != 4);
-
-    // Menu Evento
-//        System.out.println("Digite o nome do Evento:");
-//        System.out.println("Digite o tipo do Evento:");
-//        System.out.println("Digite a data do Evento:");
-//        System.out.println("Digite o cpf do orador do Evento:");
-//        System.out.println("Digite a carga horária do Evento:");
-
-    // Menu Orador
-//        System.out.println("Digite o nome do Orador:");
-//        System.out.println("Digite o cpf do Orador:");
 
     private static void showMainMenu() {
         clearConsole();
         System.out.println("----------------------");
+        System.out.println("1) Gerenciar Eventos");
+        System.out.println("2) Gerenciar Alunos");
+        System.out.println("3) Sair do Sistema");
+        System.out.println("----------------------");
+    }
+    
+    private static void showAgendaMenu() {
+        clearConsole();
+        System.out.println("----------------------");
         System.out.println("1) Adicionar Evento");
         System.out.println("2) Remover Evento");
-        System.out.println("\n3) Adicionar MiniCurso");
-        System.out.println("4) Remover MiniCurso");
-        System.out.println("\n5) Adicionar Palestra");
-        System.out.println("6) Remover Palestra");
-        System.out.println("\n7) Gerar Certificados");
-        System.out.println("\n8) Sair do Sistema");
+        System.out.println("3) Listar Eventos");
+        System.out.println("\n4) Adicionar MiniCurso");
+        System.out.println("5) Remover MiniCurso");
+        System.out.println("6) Listar Minicursos");
+        System.out.println("\n7) Adicionar Palestra");
+        System.out.println("8) Remover Palestra");
+        System.out.println("9) Listar Palestras");
+        System.out.println("\n10) Voltar ao Menu Principal");
+        System.out.println("----------------------");
+    }
+    
+    private static void showStudentMenu() {
+        clearConsole();
+        System.out.println("----------------------");
+        System.out.println("1) Adicionar Aluno");
+        System.out.println("2) Remover Aluno");
+        System.out.println("\n3) Cadastrar Aluno em EventoItem");
+        System.out.println("4) Remover Aluno de EventoItem");
+        System.out.println("\n5) Gerar Certificados");
+        System.out.println("\n6) Voltar ao Menu Principal");
         System.out.println("----------------------");
     }
 

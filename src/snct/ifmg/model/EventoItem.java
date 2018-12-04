@@ -8,8 +8,10 @@ public class EventoItem implements Agendavel {
 
     private String tema;
     private Data data;
+    private Integer id;
 
-    public EventoItem(String tema, Data data) {
+    public EventoItem(Integer id, String tema, Data data) {
+        this.id = id;
         this.tema = tema;
         this.data = data;
     }
@@ -34,9 +36,16 @@ public class EventoItem implements Agendavel {
         this.data = data;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public Boolean temConflitos() {
         return null;
     }
-
 }

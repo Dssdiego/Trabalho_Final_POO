@@ -55,32 +55,46 @@ public class Evento {
         miniCursoList.add(new MiniCurso(miniCurso.getId(), miniCurso.getTema(), miniCurso.getData(), miniCurso.getRecursos()));
     }
 
-    public void removerPalestra(Integer id) {
+    public void removerPalestra(Integer id) throws NonExistentException{
         palestraList.remove(encontrarPalestra(id));
 //        eventoItemList.remove(encontrarPalestra(id));
     }
 
-    public void removerMiniCurso(Integer id) {
+    public void removerMiniCurso(Integer id) throws NonExistentException{
         miniCursoList.remove(encontrarMiniCurso(id));
 //        eventoItemList.remove(encontrarMiniCurso(id));
     }
 
-    private Palestra encontrarPalestra(Integer id) {
+    private Palestra encontrarPalestra(Integer id) throws NonExistentException{
         for (Palestra palestra : palestraList) {
             if (palestra.getId().equals(id)) {
                 return palestra;
             }
         }
-        return null;
+        throw new NonExistentException("Palestra inexistente.");
     }
 
-    private MiniCurso encontrarMiniCurso(Integer id) {
+    private MiniCurso encontrarMiniCurso(Integer id) throws NonExistentException{
         for (MiniCurso miniCurso : miniCursoList) {
             if (miniCurso.getId().equals(id)) {
                 return miniCurso;
             }
         }
-        return null;
+        throw new NonExistentException("Mini Curso inexistente.");
+    }
+    
+    public EventoItem encontrarEventoItem(Integer id) throws NonExistentException{
+        for (EventoItem miniCurso : miniCursoList) {
+            if (miniCurso.getId().equals(id)) {
+                return miniCurso;
+            }
+        }
+        for (EventoItem palestra : palestraList) {
+            if (palestra.getId().equals(id)) {
+                return palestra;
+            }
+        }
+        throw new NonExistentException("Mini Curso/Palestra inexistente.");
     }
 
 }

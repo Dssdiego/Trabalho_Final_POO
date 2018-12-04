@@ -6,21 +6,11 @@ package snct.ifmg.model;
 
 public class MiniCurso extends EventoItem {
 
-    private Integer id;
     private String[] recursos;
 
     public MiniCurso(Integer id, String tema, Data data, String[] recursos) {
-        super(tema, data);
-        this.id = id;
+        super(id, tema, data);
         this.recursos = recursos;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String[] getRecursos() {

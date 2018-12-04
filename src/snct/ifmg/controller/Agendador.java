@@ -8,12 +8,10 @@ import snct.ifmg.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Agendador {
 
     List<Evento> eventoList = new ArrayList<>();
-    Scanner sc = new Scanner(System.in);
 
     public Agendador() {
     }
@@ -22,49 +20,37 @@ public class Agendador {
         if (area.equals("")) throw new EmptyStringException("Area Vazia");
         Evento evento = new Evento(eventoID, area);
         eventoList.add(evento);
-        logaMensagem("EVENTO " + "\"" + evento.getArea() + "\"" + " adicionado com sucesso");
+        Utils.logaMensagem("EVENTO " + "\"" + evento.getArea() + "\"" + " adicionado com sucesso");
     }
 
-    public void adicionarPalestra(Integer eventoID, Palestra palestra) {
-        for (Evento evento : eventoList) {
-            if (evento.getEventoID().equals(eventoID)) {
-                evento.adicionarPalestra(palestra);
-                logaMensagem("PALESTRA " + "\"" + palestra.getTema() + "\"" + " adicionada com sucesso");
-            }
-        }
+    public void adicionarPalestra(Integer eventoID, Palestra palestra)  throws NonExistentException{
+        Evento evento = encontrarEvento(eventoID);
+        evento.adicionarPalestra(palestra);
+        Utils.logaMensagem("PALESTRA " + "\"" + palestra.getTema() + "\"" + " adicionada com sucesso");
     }
 
-    public void adicionarMiniCurso(Integer eventoID, MiniCurso miniCurso) {
-        for (Evento evento : eventoList) {
-            if (evento.getEventoID().equals(eventoID)) {
-                evento.adicionarMiniCurso(miniCurso);
-                logaMensagem("MINICURSO " + "\"" + miniCurso.getTema() + "\"" + " adicionado com sucesso");
-            }
-        }
+    public void adicionarMiniCurso(Integer eventoID, MiniCurso miniCurso)  throws NonExistentException{
+        Evento evento = encontrarEvento(eventoID);
+        evento.adicionarMiniCurso(miniCurso);
+        Utils.logaMensagem("MINICURSO " + "\"" + miniCurso.getTema() + "\"" + " adicionado com sucesso");
     }
 
-    public void removerEvento(Integer eventoID) {
-        for (Evento evento : eventoList) {
-            eventoList.remove(encontrarEvento(eventoID));
-        }
+    public void removerEvento(Integer eventoID) throws NonExistentException{
+        Evento evento = encontrarEvento(eventoID);
+        eventoList.remove(evento);
+        Utils.logaMensagem("EVENTO " + "\"" + evento.getArea() + "\"" + " removido com sucesso");
     }
 
-    public void removerMiniCurso(Integer eventoID, Integer miniCursoID) {
-        for (Evento evento : eventoList) {
-            if (evento.getEventoID().equals(eventoID)) {
-                evento.removerMiniCurso(miniCursoID);
-                logaMensagem("Minicurso de ID " + miniCursoID + " removido com sucesso");
-            }
-        }
+    public void removerMiniCurso(Integer eventoID, Integer miniCursoID) throws NonExistentException{
+        Evento evento = encontrarEvento(eventoID);
+        evento.removerMiniCurso(miniCursoID);
+        Utils.logaMensagem("Minicurso de ID " + miniCursoID + " removido com sucesso");
     }
 
-    public void removerPalestra(Integer eventoID, Integer palestraID) {
-        for (Evento evento : eventoList) {
-            if (evento.getEventoID().equals(eventoID)) {
-                evento.removerPalestra(palestraID);
-                logaMensagem("Palestra de ID " + palestraID + " removida com sucesso");
-            }
-        }
+    public void removerPalestra(Integer eventoID, Integer palestraID) throws NonExistentException{
+        Evento evento = encontrarEvento(eventoID);
+        evento.removerPalestra(palestraID);
+        Utils.logaMensagem("Palestra de ID " + palestraID + " removida com sucesso");
     }
 
     public void getEventos() {
@@ -92,16 +78,12 @@ public class Agendador {
         System.out.println("------------------------------");
     }
 
-    private Evento encontrarEvento(Integer id) {
+    public Evento encontrarEvento(Integer id) throws NonExistentException{
         for (Evento evento : eventoList) {
             if (evento.getEventoID().equals(id)) {
                 return evento;
             }
         }
-        return null;
-    }
-
-    private void logaMensagem(String mensagem) {
-        System.out.println(mensagem);
+        throw new NonExistentException("Evento inexistente.");
     }
 }
