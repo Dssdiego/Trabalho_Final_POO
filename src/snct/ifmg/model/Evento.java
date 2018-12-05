@@ -10,6 +10,7 @@ import java.util.List;
 public class Evento {
 
     //    List<EventoItem> eventoItemList = new ArrayList<>();
+    //TODO: Poderia usar polimorfismo
     List<Palestra> palestraList = new ArrayList<>();
     List<MiniCurso> miniCursoList = new ArrayList<>();
 

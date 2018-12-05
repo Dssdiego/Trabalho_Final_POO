@@ -35,6 +35,7 @@ public class GerenciaAluno {
         Evento evento = agendador.encontrarEvento(eventoID);
         EventoItem eventoItem = evento.encontrarEventoItem(EventoItemID);
         aluno.realizarInscricao(eventoItem);
+        Utils.logaMensagem("ALUNO " + "\"" + aluno.getNome() + "\"" + " cadastrado no evento de id " + eventoID + "/" + EventoItemID + " adicionado com sucesso");
     }
     
     public void cancelarInscricaoAlunoEmEventoItem(String matricula, Integer eventoID, Integer EventoItemID, Agendador agendador) throws NonExistentException{
@@ -42,6 +43,7 @@ public class GerenciaAluno {
         Evento evento = agendador.encontrarEvento(eventoID);
         EventoItem eventoItem = evento.encontrarEventoItem(EventoItemID);
         aluno.cancelarInscricao(eventoItem);
+        Utils.logaMensagem("ALUNO " + "\"" + aluno.getNome() + "\"" + " cadastrado no evento de id " + eventoID + "/" + EventoItemID + " removido com sucesso");
     }
     
     public void printAlunoData(String matricula) throws NonExistentException{
@@ -49,7 +51,13 @@ public class GerenciaAluno {
         aluno.imprimirDados();
     }
     
-    private Aluno encontrarAluno(String matricula) throws NonExistentException{
+    public void listarAlunos(){
+        for(Aluno aluno : alunoList){
+            aluno.imprimirDados();
+        }
+    }
+    
+    public Aluno encontrarAluno(String matricula) throws NonExistentException{
         for (Aluno aluno : alunoList) {
             if (aluno.getMatricula().equals(matricula)) {
                 return aluno;

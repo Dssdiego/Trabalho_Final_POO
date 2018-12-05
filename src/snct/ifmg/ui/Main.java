@@ -24,6 +24,12 @@ public class Main {
         GerenciaAluno gerenciaAluno = new GerenciaAluno();
         int opcao;
         
+        String nome;
+        String cpf;
+        String matricula;
+        Integer eventoID;
+        Integer eventoItemID;
+        
         do {
             showMainMenu();
             opcao = scanner.nextInt();
@@ -68,9 +74,12 @@ public class Main {
                                 mostrarRodape();
                                 break;
                             case 4: // Adicionar MiniCurso
+                                System.out.println("Digite o ID do Evento");
+                                int evento12 = scanner.nextInt();
+                                scanner.nextLine();
+                                
                                 System.out.println("Digite o ID do Minicurso");
                                 int miniCursoID = scanner.nextInt();
-
                                 scanner.nextLine();
 
                                 System.out.println("Digite o tema do Minicurso");
@@ -95,7 +104,7 @@ public class Main {
                                 MiniCurso miniCurso = new MiniCurso(miniCursoID, miniCursoTema, data, null);
 
                                 try {
-                                    agendador.adicionarMiniCurso(miniCursoID, miniCurso);
+                                    agendador.adicionarMiniCurso(evento12, miniCurso);
                                 } catch (NonExistentException e) {
                                     e.printStackTrace();
                                 }
@@ -135,6 +144,10 @@ public class Main {
                                 mostrarRodape();
                                 break;
                             case 7: // Adicionar Palestra
+                                System.out.println("Digite o ID do Evento");
+                                int idEvento2 = scanner.nextInt();
+                                scanner.nextLine();
+                                
                                 System.out.println("Digite o ID da Palestra");
                                 int idPalestra = scanner.nextInt();
 
@@ -165,7 +178,7 @@ public class Main {
                                 Palestra palestra = new Palestra(idPalestra, palestraTema, dataPalestra, usaAuditorio);
 
                                 try {
-                                    agendador.adicionarPalestra(idPalestra, palestra);
+                                    agendador.adicionarPalestra(idEvento2, palestra);
                                 } catch (NonExistentException e) {
                                     e.printStackTrace();
                                 }
@@ -215,22 +228,79 @@ public class Main {
                     do {
                         showStudentMenu();
                         opcao = scanner.nextInt();
+                        scanner.nextLine();
 
                         switch (opcao) {
                             case 1: // Adicionar Aluno
+                                System.out.println("Digite o nome do aluno");
+                                nome = scanner.nextLine();
+                                System.out.println("Digite o cpf do aluno");
+                                cpf = scanner.nextLine();
+                                System.out.println("Digite a matricula do aluno");
+                                matricula = scanner.nextLine();
+                                gerenciaAluno.adicionarAluno(nome, cpf, matricula);
                                 
+                                mostrarRodape();
                                 break;
                             case 2: // Remover Aluno
+                                gerenciaAluno.listarAlunos();
+                                System.out.println("Digite a matricula do aluno");
+                                matricula = scanner.nextLine();
+                                try{
+                                    gerenciaAluno.removerAluno(matricula);
+                                } catch (NonExistentException nExc){
+                                    System.out.println(nExc.getMessage());
+                                }
                                 
+                                mostrarRodape();
                                 break;
                             case 3: // Cadastrar aluno em eventoItem
+                                gerenciaAluno.listarAlunos();
+                                System.out.println("Digite a matricula do aluno");
+                                matricula = scanner.nextLine();
+                                System.out.println("Digite o id do evento em que deseja cadastrar o aluno");
+                                eventoID = scanner.nextInt();
+                                scanner.nextLine();
+                                System.out.println("Digite o id do mini curso/Palestra que deseja cadastrar o aluno");
+                                eventoItemID = scanner.nextInt();
+                                scanner.nextLine();
+                                try{
+                                    gerenciaAluno.inscreverAlunoEmEventoItem(matricula, eventoID, eventoItemID, agendador);
+                                } catch (NonExistentException nExc){
+                                    System.out.println(nExc.getMessage());
+                                }
                                 
+                                mostrarRodape();
                                 break;
                             case 4: // Remover aluno de eventoItem
+                                gerenciaAluno.listarAlunos();
+                                System.out.println("Digite a matricula do aluno");
+                                matricula = scanner.nextLine();
+                                System.out.println("Digite o id do evento do qual deseja remover o aluno");
+                                eventoID = scanner.nextInt();
+                                scanner.nextLine();
+                                System.out.println("Digite o id do mini curso/Palestra do qual deseja remover o aluno");
+                                eventoItemID = scanner.nextInt();
+                                scanner.nextLine();
+                                try{
+                                    gerenciaAluno.cancelarInscricaoAlunoEmEventoItem(matricula, eventoID, eventoItemID, agendador);
+                                } catch (NonExistentException nExc){
+                                    System.out.println(nExc.getMessage());
+                                }
                                 
+                                mostrarRodape();
                                 break;
                             case 5: // Gerar certificados
+                                gerenciaAluno.listarAlunos();
+                                System.out.println("Digite a matricula do aluno");
+                                matricula = scanner.nextLine();
+                                try{
+                                    gerenciaAluno.encontrarAluno(matricula).emitirCertificado();
+                                } catch (NonExistentException nExc){
+                                    System.out.println(nExc.getMessage());
+                                }
                                 
+                                mostrarRodape();
                                 break;
                             case 6: // Voltar o menu principal
                                 break;

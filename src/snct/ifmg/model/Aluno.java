@@ -46,15 +46,14 @@ public class Aluno extends Pessoa implements EmiteCertificado {
     }
 
     public void imprimirDados(){
-        String dados = "Nome:      " + this.getNome() +
-                       "CPF:       " + this.getCpf() + 
-                       "Matricula: " + this.getMatricula();
+        String dados = "Nome:      " + this.getNome() + "\n" + 
+                       "CPF:       " + this.getCpf() + "\n" + 
+                       "Matricula: " + this.getMatricula() + "\n";
         System.out.println(dados);
     }
     
     @Override
-    public void EmitirCertificado() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void emitirCertificado() {
+        System.out.println("Not supported yet.");
     }
-
 }

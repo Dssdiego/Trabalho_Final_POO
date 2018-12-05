@@ -10,5 +10,5 @@ package snct.ifmg.model;
  * @author Manoe
  */
 public interface EmiteCertificado {
-    public void EmitirCertificado();
+    public void emitirCertificado();
 }
